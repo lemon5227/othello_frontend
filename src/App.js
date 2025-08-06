@@ -286,7 +286,6 @@ function App() {
     let width = canvas.width = window.innerWidth;
     let height = canvas.height = window.innerHeight;
 
-    //choose image of the season
     let img = new window.Image();
     if (season === 'spring') img.src = flowerImg;
     else if (season === 'summer') img.src = cocoImg;
@@ -294,15 +293,16 @@ function App() {
     else img.src = snowImg;
 
     const elements = [];
-    const elementCount = 40;
+    const elementCount = 25; // Reduced element count
     for (let i = 0; i < elementCount; i++) {
       elements.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        speed: 1 + Math.random() * 2,
-        size: 32 + Math.random() * 32,
+        speed: 0.5 + Math.random() * 1.5, // Slower speed
+        size: 20 + Math.random() * 20, // Smaller size
         angle: Math.random() * 2 * Math.PI,
-        angularSpeed: (Math.random() - 0.5) * 0.02
+        angularSpeed: (Math.random() - 0.5) * 0.01,
+        opacity: 0.5 + Math.random() * 0.5, // Random opacity
       });
     }
 
@@ -317,6 +317,7 @@ function App() {
           el.x = Math.random() * width;
         }
         ctx.save();
+        ctx.globalAlpha = el.opacity;
         ctx.translate(el.x, el.y);
         ctx.rotate(el.angle);
         ctx.drawImage(img, -el.size / 2, -el.size / 2, el.size, el.size);
@@ -336,7 +337,9 @@ function App() {
     return () => {
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationId);
-      ctx.clearRect(0, 0, width, height);
+      if(ctx) {
+        ctx.clearRect(0, 0, width, height);
+      }
     };
   }, [season]);
 

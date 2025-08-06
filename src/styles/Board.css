@@ -3,130 +3,98 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-  padding: 0px;
-  background-color: #003366;
-  border-radius: 15px;
-  color: white;
-  font-family: 'Poppins', sans-serif;
-}
-
-/* Column labels (A-H) */
-.column-labels {
-  display: flex;
-  justify-content: center;
-  width: 500px;
-  margin-bottom: 5px;
-}
-
-.corner-space {
-  width: 40px;
-}
-
-.column-label {
-  width: 60px;
-  text-align: center;
-  font-size: 22px;
-  font-weight: bold;
-  color: white;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
-}
-
-/* Row labels (1-8) */
-.board-wrapper {
-  display: flex;
-  align-items: center;
-}
-
-.row-labels {
-  display: flex;
-  flex-direction: column;
-  margin-right: 5px;
-}
-
-.row-label {
-  height: 60px;
-  width: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  font-weight: bold;
-  color: white;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .board {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #228B22;
-  border-radius: 15px;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(0, 0, 0, 0.3);
-  padding: 10px;
-}
-
-.row {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(8, 60px);
+  grid-template-rows: repeat(8, 60px);
+  gap: 4px;
+  background-color: #1a4d2e;
+  border-radius: 10px;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.4), 0 10px 20px rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  border: 5px solid #c8a77b;
 }
 
 .cell {
   width: 60px;
   height: 60px;
-  border: 2px solid #003366;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background-color: #006400;
-  transition: all 0.2s ease;
-  border-radius: 8px;
+  background-color: #2a6f47;
+  border-radius: 6px;
+  transition: all 0.3s ease;
   position: relative;
+  perspective: 1000px;
 }
 
 .cell:hover {
-  background-color: #32CD32;
+  background-color: #3a8e5e;
   transform: scale(1.05);
 }
 
 .piece {
-  font-size: 36px;
+  width: 85%;
+  height: 85%;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), inset 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.piece-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .black {
-  background-color: black;
-  color: black;
+  background: radial-gradient(circle at 50% 120%, #333, #000 90%);
+  transform: rotateY(180deg);
 }
 
 .white {
-  background-color: white;
-  color: white;
-  border: 1px solid black;
+  background: radial-gradient(circle at 50% 120%, #fff, #ccc 90%);
 }
 
-.piece.hint {
-  opacity: 0.5;
-  width: 50px;
-  height: 50px;
+.flipping .piece {
+  transform: rotateY(180deg);
+}
+
+.hint {
+  width: 70%;
+  height: 70%;
   border-radius: 50%;
   position: absolute;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+  opacity: 0.4;
+  transition: all 0.3s ease;
+}
+
+.cell:hover .hint {
+  opacity: 0.7;
+  transform: scale(1.1);
 }
 
 .hint.black {
-  background-color: black;
+  background: radial-gradient(circle, #444, #222);
 }
 
 .hint.white {
-  background-color: white;
-  border: 1px solid black;
+  background: radial-gradient(circle, #eee, #bbb);
 }
 
 .winner-popup {
@@ -135,43 +103,35 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 
 .winner-box {
-  background: white;
+  background: rgba(255, 255, 255, 0.8);
   color: #333;
-  padding: 30px;
-  border-radius: 10px;
+  padding: 40px;
+  border-radius: 20px;
   text-align: center;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-  position: relative;
-  z-index: 1;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  animation: fadeInUp 0.5s ease;
 }
 
 .winner-box h2 {
-  font-size: 24px;
+  font-size: 2rem;
   margin-bottom: 20px;
+  color: var(--main-color);
 }
 
 .winner-box button {
-  background: #003366;
-  color: white;
-  font-size: 18px;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background 0.3s;
+  margin-top: 20px;
 }
-
-.winner-box button:hover {
-  background: #001a33;
-}
-
 
 #fireworks {
   position: fixed;
@@ -180,5 +140,5 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 0;
+  z-index: 1001;
 }
