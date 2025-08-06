@@ -337,37 +337,34 @@ const Board = ({
       
       <h3>Black: {scores.black} - White: {scores.white}</h3>
 
-      <div className="column-labels">
-        <div className="corner-space"></div>
-        {["A", "B", "C", "D", "E", "F", "G", "H"].map((label, i) => (
-          <div key={i} className="column-label">{label}</div>
-        ))}
-      </div>
-
       <div className="board-wrapper">
-        <div className="row-labels">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((label, i) => (
-            <div key={i} className="row-label">{label}</div>
+        <div className="column-labels">
+          {["A", "B", "C", "D", "E", "F", "G", "H"].map((label, i) => (
+            <div key={i} className="column-label">{label}</div>
           ))}
         </div>
-
-        <div className="board">
-          {board.map((row, rowIndex) => (
-            <div className="row" key={rowIndex}>
-              {row.map((cell, colIndex) => (
+        <div className="main-board-area">
+          <div className="row-labels">
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((label, i) => (
+              <div key={i} className="row-label">{label}</div>
+            ))}
+          </div>
+          <div className="board">
+            {board.flat().map((cell, index) => {
+              const rowIndex = Math.floor(index / 8);
+              const colIndex = index % 8;
+              return (
                 <Cell
                   key={`${rowIndex}-${colIndex}`}
-                  row={rowIndex}
-                  col={colIndex}
                   value={cell}
                   onClick={() => handleCellClick(rowIndex, colIndex)}
                   isHint={validMoves.some(([r, c]) => r === rowIndex && c === colIndex)}
                   hintColor={currentPlayer}
                   disabled={gameMode === 'online' && (!isMyTurn || enableAI)}
                 />
-              ))}
-            </div>
-          ))}
+              );
+            })}
+          </div>
         </div>
       </div>
 
