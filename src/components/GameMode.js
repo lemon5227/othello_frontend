@@ -1,9 +1,8 @@
 import React from "react";
-import "../styles/GameMode.css";
 
 const GameMode = ({ onSelectMode }) => {
   return (
-    <div className="game-mode">
+    <div className="game-mode glass-panel">
       <h2>Select Game Mode</h2>
       <button onClick={() => onSelectMode("local")}>Local Multiplayer</button>
       <button onClick={() => onSelectMode("ai")}>Play Against AI</button>
