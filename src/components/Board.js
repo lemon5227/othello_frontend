@@ -269,11 +269,11 @@ const Board = ({
     });
 
     setTimeout(() => {
-      setBoard(result.newBoard);
-      const newScores = calculateScore(result.newBoard);
-      setScores(newScores);
-      setCurrentPlayer(result.nextPlayer);
-    }, 300);
+        setBoard(result.newBoard);
+        const newScores = calculateScore(result.newBoard);
+        setScores(newScores);
+        setCurrentPlayer(result.nextPlayer);
+      }, 300);
   };
 
   
