@@ -437,6 +437,12 @@ function App() {
 
   return (
     <div className={`App season-${season}`}>
+      {season === 'spring' && (
+        <>
+          <div className="petal"></div>
+          <div className="petal"></div>
+        </>
+      )}
       <canvas id="falling-elements"></canvas>
       <img src="logo_othello.png" alt="Logo Othello" className="logo"></img>
       <h1 className="game-title">Nature's Othello</h1>

@@ -101,52 +101,87 @@ button:hover {
 }
 
 /* Seasonal Themes */
+@keyframes fall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
 .season-spring {
-  --main-bg: #e3fcec;
-  --main-color: #388e3c;
-  --title-color: #2e7d32;
-  --title-stroke-color: #c8e6c9;
-  --btn-bg-start: #66bb6a;
-  --btn-bg-end: #43a047;
+  --main-bg: #fde2e4;
+  --main-color: #c13b5e;
+  --title-color: #a82c4d;
+  --title-stroke-color: #f9d5da;
+  --btn-bg-start: #ff8fab;
+  --btn-bg-end: #fb6f92;
   --btn-text-color: #ffffff;
-  background: linear-gradient(120deg, #fddde6 0%, #fcede5 100%);
+  background: linear-gradient(135deg, #f9d5da 0%, #fde2e4 100%);
   position: relative;
   overflow: hidden;
 }
 
-.season-spring::before,
-.season-spring::after {
-  content: '';
+.season-spring::before, .season-spring::after {
+  content: '🌸';
   position: absolute;
-  border-radius: 50%;
-  opacity: 0.15;
+  font-size: 2rem;
+  opacity: 0.8;
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
 .season-spring::before {
-  width: 500px;
-  height: 500px;
-  background: #d4a5b5;
-  bottom: -250px;
-  left: -150px;
+  font-size: 1.5rem;
+  left: 10%;
+  animation-duration: 10s;
+  animation-delay: 0s;
 }
 
 .season-spring::after {
-  width: 300px;
-  height: 300px;
-  background: #a4c3b2;
-  top: -150px;
-  right: -100px;
+  left: 30%;
+  animation-duration: 8s;
+  animation-delay: 2s;
+}
+
+/* We can add more petals with a little trick */
+.petal {
+  position: absolute;
+  content: '🌸';
+  font-size: 1.8rem;
+  opacity: 0.7;
+  animation: fall 12s linear infinite 5s;
+  left: 50%;
+}
+
+.petal:nth-of-type(2) {
+  left: 70%;
+  font-size: 1.2rem;
+  animation: fall 15s linear infinite 8s;
+}
+
+@keyframes sun-pulse {
+  0%, 100% {
+    box-shadow: 0 0 50px 20px rgba(255, 223, 109, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 70px 30px rgba(255, 223, 109, 0.8);
+  }
 }
 
 .season-summer {
-  --main-bg: #f7e9a0;
-  --main-color: #1e5631;
-  --title-color: #f57c00;
-  --title-stroke-color: #fff3e0;
-  --btn-bg-start: #ffa726;
-  --btn-bg-end: #fb8c00;
+  --main-bg: #87ceeb;
+  --main-color: #0077be;
+  --title-color: #005a8d;
+  --title-stroke-color: #e0f7fa;
+  --btn-bg-start: #29b6f6;
+  --btn-bg-end: #0288d1;
   --btn-text-color: #ffffff;
-  background: linear-gradient(to top, #a1c4fd 0%, #c2e9fb 100%);
+  background: linear-gradient(to bottom, #87ceeb 0%, #f0f8ff 100%);
   position: relative;
   overflow: hidden;
 }
@@ -154,69 +189,90 @@ button:hover {
 .season-summer::before {
   content: '';
   position: absolute;
-  width: 400px;
-  height: 400px;
-  background: #ffda79;
+  width: 200px;
+  height: 200px;
+  background: #ffd700;
   border-radius: 50%;
-  top: -100px;
-  right: -100px;
-  opacity: 0.3;
+  top: 50px;
+  right: 50px;
+  animation: sun-pulse 5s ease-in-out infinite;
+}
+
+@keyframes leaf-fall {
+  0% { transform: translateY(-100px) rotate(0deg) scale(1); }
+  100% { transform: translateY(100vh) rotate(720deg) scale(0.5); }
 }
 
 .season-autumn {
   --main-bg: #fbeee0;
-  --main-color: #f57709;
-  --title-color: #d84315;
+  --main-color: #c15b22;
+  --title-color: #a04a1c;
   --title-stroke-color: #ffccbc;
-  --btn-bg-start: #ff7043;
-  --btn-bg-end: #f4511e;
+  --btn-bg-start: #ff8a65;
+  --btn-bg-end: #ff5722;
   --btn-text-color: #ffffff;
-  background: linear-gradient(to bottom right, #f8c291, #f7d794);
+  background: linear-gradient(to bottom, #f7d794 0%, #fbeee0 100%);
   position: relative;
   overflow: hidden;
 }
 
-.season-autumn::before {
-  content: '';
+.season-autumn::before, .season-autumn::after {
+  content: '🍁';
   position: absolute;
-  width: 0;
-  height: 0;
-  border-left: 150px solid transparent;
-  border-right: 150px solid transparent;
-  border-bottom: 260px solid #e58e26;
-  opacity: 0.1;
-  bottom: -100px;
+  font-size: 2rem;
+  animation-name: leaf-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.season-autumn::before {
   left: 20%;
-  transform: rotate(20deg);
+  animation-duration: 12s;
+}
+
+.season-autumn::after {
+  left: 80%;
+  font-size: 1.5rem;
+  animation-duration: 15s;
+  animation-delay: 3s;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.8; }
 }
 
 .season-winter {
-  --main-bg: #e0f7fa;
-  --main-color: #1565c0;
-  --title-color: #0277bd;
-  --title-stroke-color: #b3e5fc;
-  --btn-bg-start: #29b6f6;
-  --btn-bg-end: #0288d1;
+  --main-bg: #000033;
+  --main-color: #a8d5e2;
+  --title-color: #d1e8f0;
+  --title-stroke-color: #1a2a6c;
+  --btn-bg-start: #5a76a8;
+  --btn-bg-end: #3b5998;
   --btn-text-color: #ffffff;
-  background: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+  background: linear-gradient(to bottom, #000033 0%, #1a2a6c 70%, #3b5998 100%);
   position: relative;
   overflow: hidden;
 }
 
 .season-winter::before {
-  content: '❄';
+  content: '✨';
   position: absolute;
-  font-size: 100px;
+  font-size: 1rem;
   color: white;
-  opacity: 0.1;
-  top: 20%;
-  left: 10%;
-  animation: snowfall 10s linear infinite;
+  left: 20%;
+  top: 30%;
+  animation: twinkle 3s infinite 1s;
 }
 
-@keyframes snowfall {
-  0% { transform: translateY(-100px) rotate(0deg); }
-  100% { transform: translateY(100vh) rotate(360deg); }
+.season-winter::after {
+  content: '✨';
+  position: absolute;
+  font-size: 1.5rem;
+  color: white;
+  left: 80%;
+  top: 50%;
+  animation: twinkle 4s infinite 2s;
 }
 
 .App {
