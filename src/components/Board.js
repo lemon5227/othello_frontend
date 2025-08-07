@@ -5,6 +5,7 @@ import {
   GameHandlers
 } from './gameLogic';
 import Cell from './Cell';
+import Fireworks from './Fireworks';
 import '../styles/Board.css';
 import { BASE_URL } from '../config';
 
@@ -369,13 +370,21 @@ const Board = ({
       </div>
 
       {winner && (
-        <div className='winner-popup'>
-          <canvas id='fireworks'></canvas>
-          <div className='winner-box'>
-            <h2>{winner}</h2>
-            <button onClick={() => window.location.reload()}>Play Again</button>
+        <>
+          <Fireworks />
+          <div className='winner-popup'>
+            <div className='winner-box' style={{ 
+              position: 'fixed', 
+              top: '50%', 
+              left: '50%', 
+              transform: 'translate(-50%, -50%)',
+              zIndex: 1002
+            }}>
+              <h2>{winner}</h2>
+              <button onClick={() => window.location.reload()}>Play Again</button>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
